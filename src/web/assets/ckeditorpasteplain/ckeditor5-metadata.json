@@ -1,0 +1,17 @@
+{
+  "plugins": [
+    {
+      "name": "Paste plain",
+      "className": "PastePlain",
+      "description": "Adds text to the editor.",
+      "path": "src/pasteplain.ts",
+      "uiComponents": [
+        {
+          "name": "pastePlain",
+          "type": "Button",
+          "iconPath": "theme/icons/ckeditor.svg"
+        }
+      ]
+    }
+  ]
+}

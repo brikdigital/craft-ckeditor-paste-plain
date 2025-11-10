@@ -1,0 +1,4 @@
+/src/web/assets/ckeditorpasteplain/** export-ignore
+/src/web/assets/ckeditorpasteplain/build/ -export-ignore
+/src/web/assets/ckeditorpasteplain/build/** -export-ignore
+/src/web/assets/ckeditorpasteplain/CKEditorPastePlainAsset.php -export-ignore

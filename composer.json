@@ -1,0 +1,54 @@
+{
+  "name": "brikdigital/craft-ckeditor-paste-plain",
+  "description": "Force plaintext pasting of CKEditor content",
+  "type": "craft-plugin",
+  "version": "5.0.0",
+  "keywords": [
+    "craft",
+    "cms",
+    "craftcms",
+    "craft-plugin"
+  ],
+  "support": {
+    "issues": "https://github.com/brikdigital/craft-ckeditor-paste-plain/issues?state=open",
+    "source": "https://github.com/brikdigital/craft-ckeditor-paste-plain",
+    "rss": "https://github.com/brikdigital/craft-ckeditor-paste-plain/commits/v2.atom"
+  },
+  "license": "MPL-2.0",
+  "authors": [
+    {
+      "name": "Alyxia Sother",
+      "homepage": "https://alyxia.dev"
+    },
+    {
+      "name": "Brik.digital",
+      "homepage": "https://brik.digital"
+    }
+  ],
+  "require": {
+    "php": ">=8.2",
+    "craftcms/ckeditor": "^4.6",
+    "craftcms/cms": "^5.6.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "brikdigital\\craftckeditorpasteplain\\": "src/"
+    }
+  },
+  "extra": {
+    "handle": "ckeditor-paste-plain",
+    "name": "CKEditor Paste Plain",
+    "developer": "Brik.digital",
+    "class": "brikdigital\\craftckeditorpasteplain\\CKEditorPastePlain"
+  },
+  "config": {
+    "sort-packages": true,
+    "platform": {
+      "php": "8.2"
+    },
+    "allow-plugins": {
+      "yiisoft/yii2-composer": true,
+      "craftcms/plugin-installer": true
+    }
+  }
+}
