@@ -31,7 +31,6 @@
   "license": "MIT",
   "files": [
     "dist",
-    "lang",
     "src/**/*.js",
     "src/**/*.d.ts",
     "theme",
@@ -59,8 +58,6 @@
     "@ckeditor/ckeditor5-inspector": "^5.0.0",
     "@ckeditor/ckeditor5-package-tools": "^4.1.1",
     "@typescript-eslint/parser": "^8.32.1",
-    "@vitest/coverage-istanbul": "^2.0.5",
-    "@vitest/browser": "^2.0.5",
     "chalk": "^5.6.0",
     "css-loader": "^7.1.2",
     "ckeditor5": "latest",
@@ -81,7 +78,6 @@
     "typescript": "5.0.4",
     "upath": "^2.0.1",
     "vite-plugin-svgo": "~1.4.0",
-    "vitest": "^2.0.5",
     "webdriverio": "^9.0.7"
   },
   "peerDependencies": {
@@ -96,13 +92,9 @@
     "lint": "eslint",
     "start": "ckeditor5-package-tools start",
     "stylelint": "stylelint --quiet --allow-empty-input 'theme/**/*.css'",
-    "test": "vitest",
-    "test:debug": "vitest --inspect-brk --no-file-parallelism --browser.headless=false",
     "prepare": "pnpm run dll:build && pnpm run build:dist",
     "prepublishOnly": "pnpm run ts:build && ckeditor5-package-tools export-package-as-javascript",
-    "postpublish": "pnpm run ts:clear && ckeditor5-package-tools export-package-as-typescript",
-    "translations:synchronize": "ckeditor5-package-tools translations:synchronize",
-    "translations:validate": "ckeditor5-package-tools translations:synchronize --validate-only"
+    "postpublish": "pnpm run ts:clear && ckeditor5-package-tools export-package-as-typescript"
   },
   "lint-staged": {
     "**/*": [
