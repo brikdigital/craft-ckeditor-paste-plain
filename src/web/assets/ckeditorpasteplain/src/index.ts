@@ -14,7 +14,7 @@ const ILLEGAL_ATTRIBUTES = [ 'bold', 'italic' ];
 
 const cleanElement = ( node: ModelElement ) => {
 	if ( window.ALYX_DEBUG_LOGGING ) {
-		console.log( 'DEBUG(cleanElement): Cleaning node:\n', node );
+		console.group( 'DEBUG(cleanElement): Cleaning node:\n', node );
 	}
 
 	if ( node.name?.startsWith( 'heading' ) || node.name?.match( HTML_HEADING_REGEX ) ) {
@@ -37,6 +37,8 @@ const cleanElement = ( node: ModelElement ) => {
 	} else if ( window.ALYX_DEBUG_LOGGING ) {
 		console.warn( 'DEBUG(cleanElement): NODE HAS NO getChildren METHOD!' );
 	}
+
+	console.groupEnd();
 };
 
 export class PastePlain extends Plugin {
@@ -49,7 +51,7 @@ export class PastePlain extends Plugin {
 
 		editor.plugins.get( 'ClipboardPipeline' ).on<ClipboardContentInsertionEvent>( 'contentInsertion', ( _e, data ) => {
 			if ( window.ALYX_DEBUG_LOGGING ) {
-				console.log( 'DEBUG(contentInsertion): triggered with data:\n', data );
+				console.group( 'DEBUG(contentInsertion): triggered with data:\n', data );
 			}
 
 			for ( const _child of data.content.getChildren() ) {
@@ -61,6 +63,8 @@ export class PastePlain extends Plugin {
 
 				cleanElement( child );
 			}
+
+			console.groupEnd();
 		} );
 	}
 }
