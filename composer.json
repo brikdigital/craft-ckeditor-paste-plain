@@ -2,7 +2,7 @@
   "name": "brikdigital/craft-ckeditor-paste-plain",
   "description": "Force plaintext pasting of CKEditor content",
   "type": "craft-plugin",
-  "version": "5.1.0",
+  "version": "5.2.0",
   "keywords": [
     "craft",
     "cms",
