@@ -1,6 +1,7 @@
 import { Plugin } from 'ckeditor5/src/core.js';
 import type { ClipboardContentInsertionEvent } from 'ckeditor5/src/clipboard.js';
 import type { ModelElement } from 'ckeditor5';
+import { cleanElement } from './utils.js';
 
 declare global {
 	interface Window {
@@ -9,38 +10,6 @@ declare global {
 	}
 }
 
-const HTML_HEADING_REGEX = /htmlH\d+/;
-const ILLEGAL_ATTRIBUTES = [ 'bold', 'italic' ];
-
-const cleanElement = ( node: ModelElement ) => {
-	if ( window.ALYX_DEBUG_LOGGING ) {
-		console.group( 'DEBUG(cleanElement): Cleaning node:\n', node );
-	}
-
-	if ( node.name?.startsWith( 'heading' ) || node.name?.match( HTML_HEADING_REGEX ) ) {
-		// @ts-expect-error This isn't *really* a ModelElement which is why this isn't actually `readonly`
-		node.name = 'paragraph';
-	} else if ( window.ALYX_DEBUG_LOGGING ) {
-		console.warn( 'DEBUG(cleanElement): NODE HAS NO NAME!' );
-	}
-
-	for ( const attribute of ILLEGAL_ATTRIBUTES ) {
-		if ( node.hasAttribute( attribute ) ) {
-			node._removeAttribute( attribute );
-		}
-	}
-
-	if ( 'getChildren' in node ) {
-		for ( const child of node.getChildren() ) {
-			cleanElement( child as unknown as ModelElement );
-		}
-	} else if ( window.ALYX_DEBUG_LOGGING ) {
-		console.warn( 'DEBUG(cleanElement): NODE HAS NO getChildren METHOD!' );
-	}
-
-	console.groupEnd();
-};
-
 export class PastePlain extends Plugin {
 	public static get pluginName() {
 		return 'PastePlain' as const;
@@ -48,6 +17,13 @@ export class PastePlain extends Plugin {
 
 	public init(): void {
 		const editor = this.editor;
+
+		// Makes sure single-paragraph monoliths are transformed into separate paragraphs
+		editor.model.schema.addChildCheck( ( ctx, child ) => {
+			if ( child.name === 'softBreak' && Array.from( ctx.getNames() ).includes( 'paragraph' ) ) {
+				return false;
+			}
+		} );
 
 		editor.plugins.get( 'ClipboardPipeline' ).on<ClipboardContentInsertionEvent>( 'contentInsertion', ( _e, data ) => {
 			if ( window.ALYX_DEBUG_LOGGING ) {
