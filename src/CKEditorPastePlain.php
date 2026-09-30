@@ -21,6 +21,6 @@ class CKEditorPastePlain extends Plugin
     {
         parent::init();
 
-        CKEditorPlugin::registerCkeditorPackage(CKEditorPastePlainAsset::class);
+        CKEditorPlugin::registerCkeditorPackage(CKEditorPastePlainAsset::class, 'index.es.js');
     }
 }

@@ -1,7 +1,5 @@
-import { Plugin } from 'ckeditor5/src/core.js';
-import type { ClipboardContentInsertionEvent } from 'ckeditor5/src/clipboard.js';
-import type { ModelElement } from 'ckeditor5';
-import { cleanElement } from './utils.js';
+import { Plugin, type ClipboardContentInsertionEvent, type ModelElement } from 'ckeditor5';
+import { cleanElement } from './utils';
 
 declare global {
 	interface Window {

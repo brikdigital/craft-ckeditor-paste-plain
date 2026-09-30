@@ -1,7 +1,6 @@
-onlyBuiltDependencies:
-  - '@swc/core'
-  - edgedriver
-  - esbuild
-  - geckodriver
-  - husky
-  - msw
+allowBuilds:
+  '@swc/core': true
+  edgedriver: false
+  esbuild: true
+  geckodriver: false
+  husky: true

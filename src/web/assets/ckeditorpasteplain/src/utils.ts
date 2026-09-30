@@ -1,7 +1,7 @@
 import type { ModelElement } from 'ckeditor5';
 
 const HTML_HEADING_REGEX = /htmlH\d+/;
-const ILLEGAL_ATTRIBUTES = [ 'bold', 'italic' ];
+const ILLEGAL_ATTRIBUTES = [ 'bold', 'italic', 'htmlI' ];
 
 export const cleanElement = ( node: ModelElement ): void => {
 	if ( window.ALYX_DEBUG_LOGGING ) {

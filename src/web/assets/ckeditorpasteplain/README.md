@@ -10,13 +10,9 @@ This package was created by the [ckeditor5-package-generator](https://www.npmjs.
   * [`start`](#start)
   * [`test`](#test)
   * [`lint`](#lint)
-  * [`stylelint`](#stylelint)
   * [`build:dist`](#builddist)
-  * [`dll:build`](#dllbuild)
-  * [`dll:serve`](#dllserve)
   * [`translations:synchronize`](#translationssynchronize)
   * [`translations:validate`](#translationsvalidate)
-  * [`ts:build` and `ts:clear`](#tsbuild-and-tsclear)
 * [License](#license)
 
 ## Developing the package
@@ -33,23 +29,13 @@ The following scripts are available in the package.
 
 ### `start`
 
-Starts an HTTP server with the live-reload mechanism that allows previewing and testing plugins available in the package.
-
-When the server starts, the default browser will open the developer sample. This can be disabled by passing the `--no-open` option to that command.
-
-You can also define the language that will translate the created editor by specifying the `--language [LANG]` option. It defaults to `'en'`.
+Starts an HTTP server with the live-reload mechanism that allows previewing and testing of plugins available in the package.
 
 Examples:
 
 ```bash
 # Starts the server and open the browser.
 pnpm run start
-
-# Disable auto-opening the browser.
-pnpm run start --no-open
-
-# Create the editor with the interface in German.
-pnpm run start --language=de
 ```
 
 ### `test`
@@ -68,27 +54,20 @@ pnpm run test --coverage
 
 ### `lint`
 
-Runs ESLint, which analyzes the code (all `*.ts` files) to quickly find problems.
+Runs ESLint, which analyzes the code to quickly find problems. It covers all `*.ts` files as well as
+the CSS code (`*.css` files in the `theme/` directory).
 
 Examples:
 
 ```bash
 # Execute eslint.
 pnpm run lint
+
+# Auto-fix problems.
+pnpm run lint --fix
 ```
 
-### `stylelint`
-
-Similar to the `lint` task, stylelint analyzes the CSS code (`*.css` files in the `theme/` directory) in the package.
-
-Examples:
-
-```bash
-# Execute stylelint.
-pnpm run stylelint
-```
-
-### `build:dist`
+### `build`
 
 Creates npm and browser builds of your plugin. These builds can be added to the editor by following the [Configuring CKEditor 5 features](https://ckeditor.com/docs/ckeditor5/latest/getting-started/setup/configuration.html) guide.
 
@@ -96,32 +75,7 @@ Examples:
 
 ```bash
 # Builds the `npm` and browser files thats are ready to publish.
-npm run build:dist
-```
-
-### `dll:build`
-
-Creates a DLL-compatible package build that can be loaded into an editor using [DLL builds](https://ckeditor.com/docs/ckeditor5/latest/builds/guides/development/dll-builds.html).
-
-Examples:
-
-```bash
-# Build the DLL file that is ready to publish.
-pnpm run dll:build
-
-# Build the DLL file and listen to changes in its sources.
-pnpm run dll:build --watch
-```
-
-### `dll:serve`
-
-Creates a simple HTTP server (without the live-reload mechanism) that allows verifying whether the DLL build of the package is compatible with the CKEditor 5 [DLL builds](https://ckeditor.com/docs/ckeditor5/latest/builds/guides/development/dll-builds.html).
-
-Examples:
-
-```bash
-# Starts the HTTP server and opens the browser.
-pnpm run dll:serve
+pnpm run build
 ```
 
 ### `translations:synchronize`
@@ -130,16 +84,18 @@ Synchronizes translation messages (arguments of the `t()` function) by performin
 
  * Collect all translation messages from the package by finding `t()` calls in source files.
  * Detect if translation context is valid, i.e. whether the provided values do not interfere with the values specified in the `@ckeditor/ckeditor5-core` package.
- * If there are no validation errors, update all translation files (`*.po` files) to be in sync with the context file:
+ * If there are no validation errors, update all translation source files (`lang/translations/*.ts`) to be in sync with the context file:
    * unused translation entries are removed,
    * missing translation entries are added with empty string as the message translation,
-   * missing translation files are created for languages that do not have own `*.po` file yet.
+   * missing translation files are created for languages that do not have their own `lang/translations/*.ts` file yet.
 
 The task may end with an error if one of the following conditions is met:
 
 * Found the `Unused context` error &ndash; entries specified in the `lang/contexts.json` file are not used in source files. They should be removed.
 * Found the `Duplicated contex` error &ndash; some of the entries are duplicated. Consider removing them from the `lang/contexts.json` file, or rewriting them.
 * Found the `Missing context` error &ndash; entries specified in source files are not described in the `lang/contexts.json` file. They should be added.
+
+Generated translation sources import the `Translations` type from the package's existing `ckeditor5` dependency.
 
 Examples:
 
@@ -156,10 +112,6 @@ Examples:
 ```bash
 pnpm run translations:validate
 ```
-
-### `ts:build` and `ts:clear`
-
-These scripts compile TypeScript and remove the compiled files. They are used in the aforementioned life cycle scripts, and there is no need to call them manually.
 
 ## License
 

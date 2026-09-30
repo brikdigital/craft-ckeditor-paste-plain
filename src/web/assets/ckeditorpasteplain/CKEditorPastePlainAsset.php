@@ -6,13 +6,15 @@ use craft\ckeditor\web\assets\BaseCkeditorPackageAsset;
 
 class CKEditorPastePlainAsset extends BaseCkeditorPackageAsset
 {
-    public $sourcePath = __DIR__ . '/build';
+	public $sourcePath = __DIR__ . '/dist/browser';
 
-    public $js = [
-        'paste-plain.js',
-    ];
+	public string $namespace = '@brikdigital/ckeditor5-paste-plain';
 
-    public array $pluginNames = [
-        'PastePlain',
-    ];
+	public $js = [
+		['index.es.js', 'type' => 'module'],
+	];
+
+	public array $pluginNames = [
+		'PastePlain',
+	];
 }
